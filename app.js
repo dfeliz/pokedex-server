@@ -7,7 +7,18 @@ var logger = require('morgan');
 var app = express();
 
 var routes = require('./routes/routes');
-var dbcon = require('./core/dbcon'); // Sequelize db connection
+var connection = require('./core/connection'); // DB connection
+var model = require('./models/modelIndex'); // Sequelize db connection
+
+connection.sync()
+
+connection.authenticate()
+  .then(() => {
+    console.log('Authenticated');
+})
+  .catch(err => {
+    console.log('Error connecting: ' + err.toString());
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

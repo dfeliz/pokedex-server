@@ -1,17 +1,17 @@
 'use strict';
+const Sequelize = require('sequelize')
+const connection = require('../core/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('users', {
-        user_id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
-        user_name: {type: DataTypes.STRING, allowNull: false },
-        user_lastname: {type: DataTypes.STRING, allowNull: false },
-        user_birthdate: {type: DataTypes.DATE, allowNull: false },
-        user_city: {type: DataTypes.STRING, allowNull: false },
-        user_email: {type: DataTypes.STRING, allowNull: false},
-        user_username: {type: DataTypes.STRING, allowNull: false },
-        user_password: {type: DataTypes.STRING, allowNull: false },
-        user_picture: {type: DataTypes.BLOB('long'), allowNull: false},
-      });
+const User = connection.define('users', {
+  user_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
+  user_name: {type: Sequelize.STRING, allowNull: false },
+  user_lastname: {type: Sequelize.STRING, allowNull: false },
+  user_birthdate: {type: Sequelize.DATE, allowNull: false },
+  user_city: {type: Sequelize.STRING, allowNull: false },
+  user_email: {type: Sequelize.STRING, allowNull: false},
+  user_username: {type: Sequelize.STRING, allowNull: false },
+  user_password: {type: Sequelize.STRING, allowNull: false },
+  user_picture: {type: Sequelize.BLOB('long'), allowNull: false},
+});
 
-    return User;
-};
+module.exports = User;

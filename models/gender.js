@@ -1,10 +1,10 @@
 'use strict';
+const Sequelize = require('sequelize')
+const connection = require('../core/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    const Gender = sequelize.define('genders', {
-        gender_id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
-        gender_name: {type: DataTypes.STRING, allowNull: false }
-    });
+const Gender = connection.define('genders', {
+    gender_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
+    gender_name: {type: Sequelize.STRING, allowNull: false }
+});
 
-    return Gender;
-};
+module.exports = Gender;

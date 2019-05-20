@@ -1,7 +1,7 @@
 'use strict';
+const Sequelize = require('sequelize')
+const connection = require('../core/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    const Poketype = sequelize.define('pokemon_types');
-    
-    return Poketype;
-};
+const Poketype = connection.define('pokemon_types');
+
+module.exports = Poketype;

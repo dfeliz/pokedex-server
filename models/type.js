@@ -1,11 +1,11 @@
 'use strict';
+const Sequelize = require('sequelize')
+const connection = require('../core/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    const Type = sequelize.define('types', {
-        type_id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
-        type_name: {type: DataTypes.STRING, allowNull: false }
-    });
+const Type = connection.define('types', {
+    type_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
+    type_name: {type: Sequelize.STRING, allowNull: false }
+});
 
-    return Type;
-};
+module.exports = Type;
 
