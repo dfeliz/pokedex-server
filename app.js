@@ -4,9 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var routes = require('./routes/routes');
-
 var app = express();
+
+var routes = require('./routes/routes');
+var dbcon = require('./core/dbcon'); // Sequelize db connection
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,8 +37,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// sequelize
-var connection = require('./core/dbcon');
 
 
 module.exports = app;
