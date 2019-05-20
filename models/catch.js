@@ -1,13 +1,13 @@
 'use strict';
+const Sequelize = require('sequelize')
+const connection = require('../core/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    const Catch = sequelize.define('catches', {
-        catch_id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
-        catch_location_x: {type: DataTypes.DECIMAL(17,15), allowNull: false },
-        catch_location_y: {type: DataTypes.DECIMAL(17,15), allowNull: false },
-        catch_date: { type: DataTypes.DATE, allowNull: false },
-    });
+const Catch = connection.define('catches', {
+    catch_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
+    catch_location_x: {type: Sequelize.DECIMAL(17,15), allowNull: false },
+    catch_location_y: {type: Sequelize.DECIMAL(17,15), allowNull: false },
+    catch_date: { type: Sequelize.DATE, allowNull: false },
+});
 
-    return Catch;
-};
+module.exports = Catch;
 
