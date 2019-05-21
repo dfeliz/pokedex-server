@@ -10,8 +10,9 @@ var routes = require('./routes/routes');
 var connection = require('./core/connection'); // DB connection
 var model = require('./models/modelIndex'); // Sequelize db connection
 
-connection.sync()
-
+connection.sync({
+  logging: false
+});
 connection.authenticate()
   .then(() => {
     console.log('Authenticated');
