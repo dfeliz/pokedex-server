@@ -9,13 +9,15 @@ var app = express();
 var routes = require('./routes/routes');
 var connection = require('./core/connection'); // DB connection
 var model = require('./models/modelIndex'); // Sequelize db connection
+// var checkData = require('./core/checkData');
 
-connection.sync({
-  logging: false
-});
+// connection.sync({
+//   logging: false
+// });
 connection.authenticate()
   .then(() => {
     console.log('Authenticated');
+    // checkData();
 })
   .catch(err => {
     console.log('Error connecting: ' + err.toString());

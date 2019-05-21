@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
 var connection = require('../core/connection');
-var Pokemon = require('../models/pokemon');
-var getData = require('../seeds/pokemon');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,20 +27,6 @@ router.get('/api/pokemons/types', function(req, res, next) {
 router.get('/api/catches', function(req, res, next) {
     res.send('Here be the catches');
 })
-
-router.get('/seeddata', async(req, res, next) => {
-    var data = await getData();
-    data.map(pokemon => {
-        Pokemon.create({
-            poke_name: pokemon.name,
-            poke_description: 'asd',
-            poke_captured: false,
-        })
-    })
-    res.send('Done!');
-}) 
-// If /seeddata is accessed, populates the database with 
-// pokeapi's pokemons
 
 // https://youtu.be/bOHysWYMZM0?t=1340
 
