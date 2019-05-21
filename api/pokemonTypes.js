@@ -1,10 +1,9 @@
 'use strict';
 const axios = require('axios');
-const api = require('../api/pokeapi');
 
-const getData = async() => {
+const getPokemonTypes = async() => {
     try {
-        return await axios.get(api.url)
+        return await axios.get('http://pokeapi.co/api/v2/type')
             .then(response => response.data.results)
     }
     catch (err){
@@ -12,4 +11,4 @@ const getData = async() => {
     }
 }
 
-module.exports = {getData};
+module.exports = getPokemonTypes;
