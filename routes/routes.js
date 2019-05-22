@@ -1,33 +1,16 @@
-var express = require('express');
-var router = express.Router();
-var connection = require('../core/connection');
+const express = require('express');
+const router = express.Router();
+const userController = require('../controller/user');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// User POST
+// Register
+router.post('/user/register', userController.register);
+// Login
+router.post('/user/login', userController.login);
 
-// GET users
-router.get('/api/users', function(req, res, next) {
-    res.send('respond with a resource');
-    console.log('hi');
-});
+// User GET
+router.get('/users', userController.getUsers);
 
-// GET pokemons
-router.get('/api/pokemons', function(req, res, next) {
-    res.send('list of pokemons');
-})
 
-// GET pokemon types
-router.get('/api/pokemons/types', function(req, res, next) {
-    res.send('Pokemon types')
-})
-
-// GET catches
-router.get('/api/catches', function(req, res, next) {
-    res.send('Here be the catches');
-})
-
-// https://youtu.be/bOHysWYMZM0?t=1340
 
 module.exports = router;
