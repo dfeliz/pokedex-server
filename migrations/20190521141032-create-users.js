@@ -39,6 +39,9 @@ module.exports = {
       user_picture: {
         type: Sequelize.BLOB,
       },
+      user_active: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
