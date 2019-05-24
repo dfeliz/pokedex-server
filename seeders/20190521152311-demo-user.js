@@ -11,6 +11,7 @@ module.exports = {
         user_username: 'jdoe',
         user_password: '1234',
         user_picture: '',
+        user_active: true,
         createdAt: '2019-05-21',
         updatedAt: '2019-05-21',
       }], {});
