@@ -1,5 +1,8 @@
 'use strict';
 
+const password = '12345678';
+const crypto = require('crypto');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', [{
@@ -9,7 +12,7 @@ module.exports = {
         user_city: 'Santo Domingo',
         user_email: 'demo@demo.com',
         user_username: 'jdoe',
-        user_password: '1234',
+        user_password: crypto.createHash('md5').update(password).digest('hex'),
         user_picture: '',
         user_active: true,
         createdAt: '2019-05-21',
