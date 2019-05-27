@@ -23,7 +23,8 @@ exports.register = async (req, res, next) => {
 } 
 
 exports.activate = (req, res, next) => {
-
+    const {email, hash} = req.body;
+    userServices.activateUser(email, hash, res)
 }
 
 exports.login = (req, res, next) => {
