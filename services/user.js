@@ -30,6 +30,30 @@ exports.registerUser = (req, res) => {
     }
 }
 
+exports.activateUser = async (email, hash, res) => {
+    await User.count({ where: {user_email: email, user_hash: hash}})
+        .then(async (quantity) => {
+            if (quantity === 1) {
+                await User.update(
+                    {user_active: 1, user_hash: null},
+                    {where: {user_email: email, user_hash: hash} }
+                ).then((data) => {
+                    httpMsgs.success(null, res, data);
+                }).catch(() => {
+                    let err = "Could not activate user";
+                    httpMsgs.show400(null, res, err)
+                })
+            }
+            else {
+                let err = "User not found"
+                httpMsgs.show400(null, res, err);
+            }
+        })
+        .catch((err) => {
+            httpMsgs.show500(null, res, err);
+        })
+}
+
 exports.getUsers = async (req, res) => {
     try {
         let data = await User.findAll();

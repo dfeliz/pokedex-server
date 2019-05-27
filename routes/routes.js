@@ -7,6 +7,8 @@ const userController = require('../controller/user');
 router.post('/user/register', userController.register);
 // Login
 router.post('/user/login', userController.login);
+// Activate
+router.post('/user/activate', userController.activate);
 
 // User GET
 router.get('/users', userController.getUsers);
