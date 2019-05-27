@@ -3,13 +3,14 @@ const httpMsgs = require('../helpers/httpMsgs');
 const crypto = require('crypto');
 const nodemailer = require('../helpers/nodemailer/nodemailer');
 
-exports.registerUser = (req, res) => {
+exports.registerUser = async (req, res) => {
     const today = new Date();
     const {user_name, user_lastname, user_birthdate, user_city, user_email, user_username, user_password, user_picture} = req;
     try {
         let hash = crypto.randomBytes(20).toString('hex');
 
-        User.create({
+        await nodemailer.sendmail(user_email, hash);
+        await User.create({
             user_name: user_name,
             user_lastname: user_lastname,
             user_birthdate: user_birthdate,
@@ -23,7 +24,6 @@ exports.registerUser = (req, res) => {
             updatedAt: today,
         })
         httpMsgs.success(req, res);
-        nodemailer.sendmail(user_email, hash);
     }
     catch (err) {
         httpMsgs.show500(req, res, err);
