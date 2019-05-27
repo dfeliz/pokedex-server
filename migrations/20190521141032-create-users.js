@@ -42,6 +42,9 @@ module.exports = {
       user_active: {
         type: Sequelize.BOOLEAN,
       },
+      user_hash: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
