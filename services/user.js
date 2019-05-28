@@ -1,7 +1,8 @@
 const User = require('../models/user');
-const httpMsgs = require('../helpers/httpMsgs');
+const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 const crypto = require('crypto');
-const nodemailer = require('../helpers/nodemailer/nodemailer');
+const nodemailer = require('../helpers/nodemailer/nodemailer'); 
+const jsonwebtoken = require('../services/jwt');
 
 exports.registerUser = async (req, res) => {
     const today = new Date();
@@ -11,7 +12,7 @@ exports.registerUser = async (req, res) => {
 
         await nodemailer.sendmail(user_email, hash);
         await User.create({
-            user_name: user_name,
+            user_name: user_name.trim,
             user_lastname: user_lastname,
             user_birthdate: user_birthdate,
             user_city: user_city,
@@ -51,6 +52,28 @@ exports.activateUser = async (email, hash, res) => {
         })
         .catch((err) => {
             httpMsgs.show500(null, res, err);
+        })
+}
+
+exports.logIn = async(username, password, res) => {
+    const hashedPassword = crypto.createHash('md5').update(password).digest('hex')
+    await User.count({ where: {user_username: username, user_password: hashedPassword}})
+        .then((quantity) => {
+            if (quantity === 1) {
+                let token = jsonwebtoken.newToken(username);
+                let data = {
+                    token,
+                    username
+                }
+                httpMsgs.success(null, res, data);
+            }
+            else {
+                let err = "User not found"
+                httpMsgs.throwErr(res, err);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
         })
 }
 

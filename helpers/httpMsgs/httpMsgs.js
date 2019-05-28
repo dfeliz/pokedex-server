@@ -24,3 +24,9 @@ exports.success = function(req, res, data) {
     }
     res.end();
 }
+
+exports.throwErr = function(res, err) {
+    res.writeHead(200, "Error", {"Content-Type": "application.json"})
+    res.write(JSON.stringify({response: "ERROR occurred: " + err}));
+    res.end();
+}
