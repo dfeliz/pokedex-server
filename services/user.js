@@ -9,10 +9,8 @@ exports.registerUser = async (req, res) => {
     const {user_name, user_lastname, user_birthdate, user_city, user_email, user_username, user_password, user_picture} = req;
     try {
         let hash = crypto.randomBytes(20).toString('hex');
-
-        await nodemailer.sendmail(user_email, hash);
         await User.create({
-            user_name: user_name.trim,
+            user_name: user_name,
             user_lastname: user_lastname,
             user_birthdate: user_birthdate,
             user_city: user_city,
@@ -24,6 +22,7 @@ exports.registerUser = async (req, res) => {
             createdAt: today,
             updatedAt: today,
         })
+        await nodemailer.sendActivation(user_email, hash);
         httpMsgs.success(req, res);
     }
     catch (err) {
@@ -86,3 +85,4 @@ exports.getUsers = async (req, res) => {
         httpMsgs.show500(req, res, err);
     }
 }
+

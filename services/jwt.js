@@ -31,9 +31,9 @@ exports.verifyToken = async (res, username, token) => {
     let userExists = await validator.checkUserExists(data);
 
     if (userExists) {
-        token = this.newToken(username);
+        token = this.newToken(user);
         data = {
-            username: username,
+            username: user,
             token: token,
         }
         httpMsgs.success(null, res, data);

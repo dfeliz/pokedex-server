@@ -1,32 +1,42 @@
+/* eslint-disable no-undef */
 "use strict";
 const nodemailer = require("nodemailer");
-const config = require('../../core/config');
 const webAppConfig = require('../../core/webAppConfig');
 
-// async..await is not allowed in global scope, must use a wrapper
-exports.sendmail = async (email, hash) => {
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: "465",
+  secure: true,
+  auth: {
+    user: process.env.SERVER_EMAIL_USERNAME, // Configured email in config.js
+    pass: process.env.SERVER_EMAIL_PASSWORD // Configured password in config.js
+  }
+});
 
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: "smtp.gmail.com",
-    port: "465",
-    secure: true,
-    auth: {
-      user: config.emailUsername, // Configured email in config.js
-      pass: config.emailPassword // Configured password in config.js
-    }
-  });
-
+exports.sendActivation = async (email, hash) => {
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: config.emailUsername, // sender address
+    from: process.env.SERVER_EMAIL_USERNAME, // sender address
     to: email, // list of receivers
     subject: "Account activation", // Subject line
-    text: `This is an automated email. Account activation link: ${webAppConfig.host}:${webAppConfig.port}/activate?email=${email}&code=${hash}`, // plain text body
+    text: `This is an automated email. Account activation link: ${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/activate?email=${email}&code=${hash}`, // plain text body
   })
   .then(() => {
-    console.log("email sent");
+    console.log("activation email sent");
+  })
+  .catch(console.error);
+}
+
+exports.sendPasswordReset = async (email, hash) => {
+  let info = await transporter.sendMail({
+    from: process.env.SERVER_EMAIL_USERNAME, // sender address
+    to: email, // list of receivers
+    subject: "Password reset", // Subject line
+    text: `You have requested password reset, heres the link: ${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/reset-password?email=${email}&code=${hash}`, // plain text body
+  })
+  .then(() => {
+    console.log("password email sent");
   })
   .catch(console.error);
 }
