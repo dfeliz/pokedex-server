@@ -43,3 +43,7 @@ exports.login = (req, res) => {
 exports.getUsers = (req, res) => {
     userServices.getUsers(req, res);
 }
+
+exports.forgotPassword = (req, res) => {
+    
+}

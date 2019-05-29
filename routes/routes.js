@@ -10,6 +10,8 @@ router.post('/user/register', userController.register);
 router.post('/user/login', userController.login);
 // Activate
 router.post('/user/activate', userController.activate);
+// ForgotPassword
+router.post('/user/forgotpassword', userController.forgotPassword)
 
 // User GET
 router.get('/users', userController.getUsers);
