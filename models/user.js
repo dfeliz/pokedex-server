@@ -12,6 +12,8 @@ const User = connection.define('users', {
   user_username: {type: Sequelize.STRING, allowNull: false },
   user_password: {type: Sequelize.STRING, allowNull: false },
   user_picture: {type: Sequelize.BLOB('long'), allowNull: false},
+  user_hash: {type: Sequelize.STRING},
+  user_active: {type: Sequelize.BOOLEAN, defaultValue: false},
 });
 
 module.exports = User;

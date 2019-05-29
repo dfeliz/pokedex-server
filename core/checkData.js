@@ -1,10 +1,10 @@
-var getPokemonData = require('../api/pokemonData');
-var getPokemonTypes = require('../api/pokemonTypes')
-var Pokemon = require('../models/pokemon');
-var Type = require('../models/type');
-var PokeType = require('../models/poketype');
+const getPokemonData = require('../api/pokemonData');
+const getPokemonTypes = require('../api/pokemonTypes')
+const Pokemon = require('../models/pokemon');
+const Type = require('../models/type');
+const PokeType = require('../models/poketype');
 
-var checkData = async () => {
+const checkData = async () => {
     let pokemonCount = await Pokemon.count();
     let typeCount = await Type.count();
 
