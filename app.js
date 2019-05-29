@@ -1,32 +1,39 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
 
-var app = express();
+const app = express();
 
-var routes = require('./routes/routes');
-var connection = require('./core/connection'); // DB connection
-var model = require('./models/modelIndex'); // Sequelize db connection
-// var checkData = require('./core/checkData');
+const routes = require('./routes/routes');
+const connection = require('./core/connection'); // DB connection
+
+/////////////////////////Sync db/////////////////////////////
+// const model = require('./models/modelIndex'); // DB model
+// const checkData = require('./core/checkData');
 
 // connection.sync({
 //   logging: false
 // });
+/////////////////////////////////////////////////////////////
+
+
 connection.authenticate()
-  .then(() => {
-    console.log('Authenticated');
-    // checkData();
+.then(() => {
+  console.log('Authenticated');
+  // checkData();
 })
-  .catch(err => {
-    console.log('Error connecting: ' + err.toString());
+.catch(err => {
+  console.log('Error connecting: ' + err.toString());
 })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
