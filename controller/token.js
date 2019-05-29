@@ -8,6 +8,6 @@ exports.checkLoggedIn = (req, res) => {
     }
     else {
         let err = "Must pass a token";
-        httpMsgs.throwErr(res, err);
+        httpMsgs.show401(null, res, err);
     }
 }

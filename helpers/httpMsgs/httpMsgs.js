@@ -17,6 +17,12 @@ exports.show409 = function(req, res, err) {
     res.end();
 }
 
+exports.show401 = function(req, res, err) {
+    res.writeHead(401, "Unauthorized (Error 401)", {"Content-Type": "application/json"})
+    res.write(JSON.stringify({response: "ERROR occurred: " + err}))
+    res.end();
+}
+
 exports.success = function(req, res, data) {
     res.writeHead(200, "Success", {"Content-Type": "application/json"});
     if (data) {
