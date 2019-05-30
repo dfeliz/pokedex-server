@@ -14,9 +14,6 @@ module.exports = {
       poke_description: {
         type: Sequelize.TEXT
       },
-      poke_captured: {
-        type: Sequelize.DATE
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
