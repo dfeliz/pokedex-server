@@ -12,6 +12,9 @@ router.post('/user/login', userController.login);
 router.post('/user/activate', userController.activate);
 // ForgotPassword
 router.post('/user/forgotpassword', userController.forgotPassword)
+// ResetPassword
+router.post('/user/checkresetpassword', userController.checkResetPassword);
+router.post('/user/resetpassword', userController.resetPassword);
 
 // User GET
 router.get('/users', userController.getUsers);
