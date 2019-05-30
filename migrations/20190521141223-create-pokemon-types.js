@@ -2,11 +2,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('pokemon_types', {
-      poketype_id: {
-        allowNull: false,
-        autoIncrement: true,
+      poke_id: {
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+      },
+      gender_id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
       },
       createdAt: {
         allowNull: false,

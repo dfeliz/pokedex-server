@@ -46,8 +46,8 @@ exports.login = (req, res) => {
     userServices.logIn(username, password, res)
 }
 
-exports.getUsers = (req, res) => {
-    userServices.getUsers(res);
+exports.getProfile = (req, res) => {
+    userServices.getUserInfo(res);
 }
 
 exports.forgotPassword = (req, res) => {
