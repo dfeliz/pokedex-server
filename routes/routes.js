@@ -3,7 +3,8 @@ const router = express.Router();
 const userController = require('../controller/user');
 const tokenController = require('../controller/token')
 
-// User
+/////////////////////// User/////////////////////
+// Public
 // Register
 router.post('/user/register', userController.register);
 // Login
@@ -16,9 +17,13 @@ router.post('/user/forgotpassword', userController.forgotPassword)
 router.post('/user/checkresetpassword', userController.checkResetPassword);
 router.post('/user/resetpassword', userController.resetPassword);
 
-// User GET
-router.get('/users', userController.getUsers);
+// Private
+// Profile
+// router.get('/user/profile', userController.getProfile);
+// router.get('/user/info', userController.getInfo)
 
+
+////////////////////// Token ////////////////////
 // JWT
 // Verify token
 router.post('/token/verify', tokenController.checkLoggedIn)

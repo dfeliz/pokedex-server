@@ -4,10 +4,6 @@ const crypto = require('crypto');
 const nodemailer = require('../helpers/nodemailer/nodemailer'); 
 const jsonwebtoken = require('../services/jwt');
 
-// exports.checkUserExists = async (data) => {
-// 
-// }
-
 exports.registerUser = async (req) => {
     const today = new Date();
     const {user_name, user_lastname, user_birthdate, user_city, user_email, user_username, user_password, user_picture} = req;
