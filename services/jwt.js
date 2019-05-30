@@ -36,6 +36,6 @@ exports.verifyToken = async (res, username, token) => {
             username: user,
             token: token,
         }
-        httpMsgs.success(null, res, data);
+        httpMsgs.success(res, data);
     }
 }

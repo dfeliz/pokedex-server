@@ -14,29 +14,32 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-exports.sendActivation = async (email, hash) => {
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: process.env.SERVER_EMAIL_USERNAME, // sender address
-    to: email, // list of receivers
-    subject: "Account activation", // Subject line
-    text: `This is an automated email. Account activation link: ${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/activate?email=${email}&code=${hash}`, // plain text body
-  })
-  .then(() => {
+exports.sendActivation = (email, hash) => {
+  try {
+    transporter.sendMail({
+      from: process.env.SERVER_EMAIL_USERNAME, // sender address
+      to: email, // list of receivers
+      subject: "Account activation", // Subject line
+      text: `This is an automated email. Account activation link: http://${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/activate?email=${email}&code=${hash}`, // plain text body
+    })
     console.log("activation email sent");
-  })
-  .catch(console.error);
+  }
+  catch (err) {
+    console.error(err);
+  }
 }
 
-exports.sendPasswordReset = async (email, hash) => {
-  let info = await transporter.sendMail({
-    from: process.env.SERVER_EMAIL_USERNAME, // sender address
-    to: email, // list of receivers
-    subject: "Password reset", // Subject line
-    text: `You have requested password reset, heres the link: ${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/reset-password?email=${email}&code=${hash}`, // plain text body
-  })
-  .then(() => {
+exports.sendPasswordReset = (email, hash, user) => {
+  try {
+    transporter.sendMail({
+      from: process.env.SERVER_EMAIL_USERNAME, // sender address
+      to: email, // list of receivers
+      subject: "Password reset", // Subject line
+      text: `You have requested password reset, heres the link: http://${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}/reset-password?email=${email}&code=${hash}`, // plain text body
+    })
     console.log("password email sent");
-  })
-  .catch(console.error);
+  }
+  catch (err) {
+    console.error(err);
+  }
 }

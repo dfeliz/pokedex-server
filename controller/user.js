@@ -9,23 +9,29 @@ exports.register = async (req, res) => {
     if (isValid) {
         if (userExists === true) {
             let err = "Username already exists in database";
-            httpMsgs.show409(req, res, err);
+            httpMsgs.show409(res, err);
         } 
         else {
             const emailExists = await validator.checkEmailExists(req.body.user);
             if (emailExists === true) {
                 let err = "Email already exists in database";
-                httpMsgs.show409(req, res, err);
+                httpMsgs.show409(res, err);
             } 
             if (userExists === false && emailExists === false) {
                 console.log("Usuario no existe y email no existe, registrando usuario")
-                userServices.registerUser(req.body.user, res);
+                try {
+                    await userServices.registerUser(req.body.user);
+                    httpMsgs.success(res);
+                }
+                catch (err) {
+                    httpMsgs.show500(res, err);
+                }
             }
         }    
     }
     else {
         let err = "Missing data";
-        httpMsgs.show400(req, res, err);
+        httpMsgs.show400(res, err);
     }
     
 } 
@@ -41,9 +47,38 @@ exports.login = (req, res) => {
 }
 
 exports.getUsers = (req, res) => {
-    userServices.getUsers(req, res);
+    userServices.getUsers(res);
 }
 
 exports.forgotPassword = (req, res) => {
-    
+    const {email} = req.body;
+    userServices.forgotPassword(email, res);
+}
+
+exports.checkResetPassword = async (req, res) => {
+    const {email, hash} = req.body;
+    let userValid = await userServices.checkEmailAndHash(email, hash);
+    if (userValid === true) {
+        httpMsgs.success(res);
+    }
+    else {
+        let err = "User not valid";
+        httpMsgs.throwErr(res, err);
+    }
+}
+
+exports.resetPassword = async (req, res) => {
+    const {email, newPassword} = req.body;
+    try {
+        let response = await userServices.resetPassword(email, newPassword);
+        if (response === "Success") {
+            httpMsgs.success(res);
+        }
+        else {
+            httpMsgs.throwErr(res, response);
+        }
+    }
+    catch (err) {
+        httpMsgs.throwErr(res, err);
+    }
 }

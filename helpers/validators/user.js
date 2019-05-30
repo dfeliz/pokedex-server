@@ -33,4 +33,4 @@ exports.checkEmailExists = async (data) => {
         return true;
     }
     return false;
-    }
+}
