@@ -6,7 +6,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
-      gender_id: {
+      type_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
       },
