@@ -11,8 +11,8 @@ module.exports = {
       poke_name: {
         type: Sequelize.STRING
       },
-      poke_description: {
-        type: Sequelize.TEXT
+      poke_image: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
