@@ -1,6 +1,8 @@
 const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 const catchServices = require('../services/catch');
 const userServices = require('../services/user');
+const tokenServices = require('../services/jwt');
+const pokemonServices = require('../services/pokemon');
 
 exports.createCatch = async (req, res) => {
     const { 
@@ -29,3 +31,20 @@ exports.createCatch = async (req, res) => {
             httpMsgs.throwErr(err);
         })
 }
+
+exports.getCatches = async (req, res) => {
+    let token = req.headers.authorization;
+    let user = await tokenServices.checkToken(res, token);
+    if (user) {
+        const userid = await userServices.getUserID(user);
+        const catches = await catchServices.getCatches(userid);
+        let pokemons = [];
+        catches.map((item) => {
+            pokemons.push(item.poke_id);
+        });
+        // const pokemonData = await pokemonServices.getPokemonsInfo(pokemons);
+        // let data = [];
+
+        // httpMsgs.success(res, data);
+    }
+}  

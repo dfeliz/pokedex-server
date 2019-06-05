@@ -140,7 +140,3 @@ exports.getUserID = async ( user_username ) => {
         console.log('error getting user id: ' + err);
     })
 }
-
-exports.getPokemonList = async () => {
-    
-}
