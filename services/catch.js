@@ -19,12 +19,18 @@ exports.createCatch = async (res, data) => {
 }
 
 exports.getCatches = async (userid) => {
-    const response = await Catch.findAll({
-        where: { user_id: userid }
-    });
-    let data = [];
-    response.map((item) => {
-        data.push(item);
+    return await Catch.findAll({
+        where: { user_id: userid },
+        attributes: ['catch_id', 'catch_location_x', 'catch_location_y', 'catch_date'],
+        include: [{
+            model: Pokemon, 
+            attributes: ['poke_id', 'poke_name', 'poke_image'],
+            required: true,
+        }],
+    }).then((response) => {
+        return response;
+    }).catch((err) => {
+        console.log(err);
+        httpMsgs.throwErr(err);
     })
-    return data;
 }
