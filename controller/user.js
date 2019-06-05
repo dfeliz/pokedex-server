@@ -83,12 +83,3 @@ exports.resetPassword = async (req, res) => {
         httpMsgs.throwErr(res, err);
     }
 }
-
-exports.getPokemonList = async (req, res) => {
-    let token = req.headers.authorization;
-    let user = await tokenServices.checkToken(res, token);
-    if (user) {
-        userServices.getPokemonList(user); //TODO
-        httpMsgs.success(res);
-    }
-}
