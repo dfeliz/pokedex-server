@@ -1,30 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controller/user');
-const tokenController = require('../controller/token')
+const tokenController = require('../controller/token');
+const pokemonController = require('../controller/pokemon');
+const catchController = require('../controller/catch');
 
-/////////////////////// User/////////////////////
-// Public
-// Register
 router.post('/user/register', userController.register);
-// Login
 router.post('/user/login', userController.login);
-// Activate
 router.post('/user/activate', userController.activate);
-// ForgotPassword
 router.post('/user/forgotpassword', userController.forgotPassword)
-// ResetPassword
 router.post('/user/checkresetpassword', userController.checkResetPassword);
 router.post('/user/resetpassword', userController.resetPassword);
-
-// Private
-// Profile
 // router.get('/user/profile', userController.getProfile);
 // router.get('/user/info', userController.getInfo)
+router.get('/user/pokemons', userController.getPokemonList) // Get user's pokemon list
+router.get('/pokemon', pokemonController.getPokemonList) // Get all pokemons
+// Next todo // router.get('/pokemon/:id', pokemonController.getSpecificPokemon) // Get specific pokemon info
+router.post('/catch', catchController.createCatch) // Create a catch item
 
-
-////////////////////// Token ////////////////////
-// JWT
 // Verify token
 router.post('/token/verify', tokenController.checkLoggedIn)
 
