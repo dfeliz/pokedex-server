@@ -38,13 +38,6 @@ exports.getCatches = async (req, res) => {
     if (user) {
         const userid = await userServices.getUserID(user);
         const catches = await catchServices.getCatches(userid);
-        let pokemons = [];
-        catches.map((item) => {
-            pokemons.push(item.poke_id);
-        });
-        // const pokemonData = await pokemonServices.getPokemonsInfo(pokemons);
-        // let data = [];
-
-        // httpMsgs.success(res, data);
+        httpMsgs.success(res, catches);
     }
 }  
