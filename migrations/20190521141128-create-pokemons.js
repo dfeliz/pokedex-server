@@ -4,7 +4,6 @@ module.exports = {
     return queryInterface.createTable('pokemons', {
       poke_id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },

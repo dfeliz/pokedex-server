@@ -7,6 +7,8 @@ const Catch = connection.define('catches', {
     catch_location_x: {type: Sequelize.DECIMAL(17,15), allowNull: false },
     catch_location_y: {type: Sequelize.DECIMAL(17,15), allowNull: false },
     catch_date: { type: Sequelize.DATE, allowNull: false },
+    user_id: { type: Sequelize.SMALLINT, allowNull: false },
+    poke_id: { type: Sequelize.SMALLINT },
 });
 
 module.exports = Catch;

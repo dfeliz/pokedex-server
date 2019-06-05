@@ -1,5 +1,6 @@
 const validator = require('../helpers/validators/user');
 const userServices = require('../services/user');
+const tokenServices = require('../services/jwt');
 const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 
 exports.register = async (req, res) => {
@@ -80,5 +81,14 @@ exports.resetPassword = async (req, res) => {
     }
     catch (err) {
         httpMsgs.throwErr(res, err);
+    }
+}
+
+exports.getPokemonList = async (req, res) => {
+    let token = req.headers.authorization;
+    let user = await tokenServices.checkToken(res, token);
+    if (user) {
+        userServices.getPokemonList(user); //TODO
+        httpMsgs.success(res);
     }
 }

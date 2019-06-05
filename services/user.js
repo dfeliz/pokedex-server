@@ -127,3 +127,20 @@ exports.resetPassword = async (email, newPassword) => {
         return error;
     })
 }
+
+exports.getUserID = async ( user_username ) => {
+    return await User.findOne({
+        where: { user_username },
+        attributes: ['user_id']
+    })
+    .then((user) => {
+        return (user.get('user_id'));
+    })
+    .catch((err) => {
+        console.log('error getting user id: ' + err);
+    })
+}
+
+exports.getPokemonList = async () => {
+    
+}

@@ -2,9 +2,9 @@ const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 const jwtServices = require('../services/jwt');
 
 exports.checkLoggedIn = (req, res) => {
-    const {username, token} = req.body;
+    const {token} = req.body;
     if (token) {
-        jwtServices.verifyToken(res, username, token);
+        jwtServices.renewToken(res, token);
     }
     else {
         let err = "Must pass a token";

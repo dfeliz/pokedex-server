@@ -6,6 +6,7 @@ const Pokemon = connection.define('pokemons', {
     poke_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
     poke_name: {type: Sequelize.STRING, allowNull: false },
     poke_image: {type: Sequelize.STRING, allowNull: false},
+    gender_id: {type: Sequelize.SMALLINT}
 });
 
 module.exports = Pokemon;
