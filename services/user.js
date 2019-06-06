@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Gender = require('../models/gender');
 const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 const crypto = require('crypto');
 const nodemailer = require('../helpers/nodemailer/nodemailer'); 
@@ -6,7 +7,7 @@ const jsonwebtoken = require('../services/jwt');
 
 exports.registerUser = async (req) => {
     const today = new Date();
-    const {user_name, user_lastname, user_birthdate, user_city, user_email, user_username, user_password, user_picture} = req;
+    const {user_name, user_lastname, user_birthdate, user_city, user_email, user_username, user_password, user_picture, gender_id} = req;
     let hash = crypto.randomBytes(20).toString('hex');
     await User.create({
         user_name: user_name,
@@ -17,6 +18,7 @@ exports.registerUser = async (req) => {
         user_username: user_username,
         user_password: crypto.createHash('md5').update(user_password).digest('hex'),
         user_picture: user_picture,
+        gender_id: gender_id,
         user_hash: hash,
         createdAt: today,
         updatedAt: today,
@@ -81,7 +83,7 @@ exports.getUsers = async (res) => {
 }
 
 exports.forgotPassword = async (email, res) => {
-    let hash = crypto.randomBytes(20).toString('hex');
+    let hash = crypto.randomBytes(20).toString('hex'); //TODO: Create with JWT and make it expire in 30 min
     await User.count({ where: {user_email: email }})
         .then(async (quantity) => {
             if (quantity === 1) {
@@ -98,7 +100,7 @@ exports.forgotPassword = async (email, res) => {
             }
             else {
                 let err = "Email not found";
-                httpMsgs.throwErr(err);
+                httpMsgs.throwErr(res, err);
             }
         })
         .catch ((err) => {
@@ -138,5 +140,21 @@ exports.getUserID = async ( user_username ) => {
     })
     .catch((err) => {
         console.log('error getting user id: ' + err);
+    })
+}
+
+exports.getProfile = async (user) => {
+    return await User.findAll({
+        where: {user_username: user},
+        attributes: ['user_name', 'user_lastname', 'user_birthdate', 'user_city', 'user_email', 'user_username'],
+        include: [{
+            model: Gender,
+            attributes: ['gender_name'],
+            required: true,
+        }]
+    }).then((response) => {
+        return response;
+    }).catch((err) => {
+        console.log(err);
     })
 }
