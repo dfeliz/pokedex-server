@@ -10,13 +10,13 @@ exports.register = async (req, res) => {
     if (isValid) {
         if (userExists === true) {
             let err = "Username already exists in database";
-            httpMsgs.show409(res, err);
+            httpMsgs.throwErr(res, err);
         } 
         else {
             const emailExists = await validator.checkEmailExists(req.body.user);
             if (emailExists === true) {
                 let err = "Email already exists in database";
-                httpMsgs.show409(res, err);
+                httpMsgs.throwErr(res, err);
             } 
             if (userExists === false && emailExists === false) {
                 console.log("Usuario no existe y email no existe, registrando usuario")
@@ -45,10 +45,6 @@ exports.activate = (req, res) => {
 exports.login = (req, res) => {
     const {username, password} = req.body.user;
     userServices.logIn(username, password, res)
-}
-
-exports.getProfile = (req, res) => {
-    userServices.getUserInfo(res);
 }
 
 exports.forgotPassword = (req, res) => {
@@ -81,5 +77,14 @@ exports.resetPassword = async (req, res) => {
     }
     catch (err) {
         httpMsgs.throwErr(res, err);
+    }
+}
+
+exports.getProfile = async (req, res) => {
+    let token = req.headers.authorization;
+    let user = await tokenServices.checkToken(res, token);
+    if (user) {
+        let data = await userServices.getProfile(user);
+        httpMsgs.success(res, data);
     }
 }

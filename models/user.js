@@ -1,6 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize')
 const connection = require('../core/connection');
+const Gender = require('../models/gender');
 
 const User = connection.define('users', {
   user_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
@@ -15,5 +16,7 @@ const User = connection.define('users', {
   user_hash: {type: Sequelize.STRING},
   user_active: {type: Sequelize.BOOLEAN, defaultValue: false},
 });
+
+User.belongsTo(Gender, {foreignKey: 'gender_id'}); // Adds gender_id to user table
 
 module.exports = User;
