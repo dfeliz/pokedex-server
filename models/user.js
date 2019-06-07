@@ -7,7 +7,7 @@ const User = connection.define('users', {
   user_id: {type: Sequelize.SMALLINT, primaryKey: true, autoIncrement: true},
   user_name: {type: Sequelize.STRING, allowNull: false },
   user_lastname: {type: Sequelize.STRING, allowNull: false },
-  user_birthdate: {type: Sequelize.DATE, allowNull: false },
+  user_birthdate: {type: Sequelize.DATEONLY, allowNull: false },
   user_city: {type: Sequelize.STRING, allowNull: false },
   user_email: {type: Sequelize.STRING, allowNull: false},
   user_username: {type: Sequelize.STRING, allowNull: false },

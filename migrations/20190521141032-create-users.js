@@ -17,7 +17,7 @@ module.exports = {
         alllowNull: false,
       },
       user_birthdate: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         alllowNull: false,
       },
       user_city: {
@@ -47,11 +47,11 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       }
     });
   },
