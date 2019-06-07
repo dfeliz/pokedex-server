@@ -1,6 +1,5 @@
 const httpMsgs = require('../helpers/httpMsgs/httpMsgs');
 const Catch = require('../models/catch');
-const User = require('../models/user');
 const Pokemon = require('../models/pokemon');
 
 exports.createCatch = async (res, data) => {
@@ -32,5 +31,15 @@ exports.getCatches = async (userid) => {
     }).catch((err) => {
         console.log(err);
         httpMsgs.throwErr(err);
+    })
+}
+
+exports.deleteCatch = async (catchId, userId) => {
+    await Catch.destroy(
+        { where: { catch_id: catchId, user_id: userId }}
+    ).then(() => {
+        return "Success"
+    }).catch((err) => {
+        return `Error occurred: ${err}`
     })
 }

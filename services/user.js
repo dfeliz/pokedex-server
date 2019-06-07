@@ -146,7 +146,7 @@ exports.getUserID = async ( user_username ) => {
 exports.getProfile = async (user) => {
     return await User.findAll({
         where: {user_username: user},
-        attributes: ['user_name', 'user_lastname', 'user_birthdate', 'user_city', 'user_email', 'user_username'],
+        attributes: ['user_name', 'user_lastname', 'user_birthdate', 'user_city', 'user_email', 'user_username', 'createdAt'],
         include: [{
             model: Gender,
             attributes: ['gender_name'],
@@ -156,5 +156,23 @@ exports.getProfile = async (user) => {
         return response;
     }).catch((err) => {
         console.log(err);
+    })
+}
+
+exports.updateProfile = async (user, data) => {
+    return await User.update(
+        {
+            user_name: data.user_name,
+            user_lastname: data.user_lastname,
+            user_birthdate: data.user_birthdate,
+            user_city: data.user_city,
+            // user_email: data.user_email,
+            gender_id: data.gender_id,
+        },
+        { where: { user_username: user }},
+    ).then(() => {
+        return "Success"
+    }).catch((err) => {
+        return `Error: + ${err}`
     })
 }

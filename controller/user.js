@@ -88,3 +88,20 @@ exports.getProfile = async (req, res) => {
         httpMsgs.success(res, data);
     }
 }
+
+exports.updateProfile = async (req, res) => {
+    let token = req.headers.authorization;
+    let user = await tokenServices.checkToken(res, token);
+    if (user) {
+        let data = req.body;
+        await userServices.updateProfile(user, data)
+            .then((response) => {
+                if (response === "Success") {
+                    httpMsgs.success(res);
+                }
+                else {
+                    httpMsgs.throwErr(res, response);
+                }
+            })
+    }
+}

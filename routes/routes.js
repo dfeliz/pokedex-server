@@ -12,11 +12,11 @@ router.post('/user/forgotpassword', userController.forgotPassword)
 router.post('/user/checkresetpassword', userController.checkResetPassword);
 router.post('/user/resetpassword', userController.resetPassword);
 router.get('/user/profile', userController.getProfile);
-// router.post('/user/profile/update', userController.updateProfile);
-// router.get('/user/info', userController.getInfo)
+router.post('/user/profile/update', userController.updateProfile);
 router.get('/pokemon', pokemonController.getPokemonList) // Get all pokemons
 router.post('/catch', catchController.createCatch) // Create a catch item
-router.post('/user/catches', catchController.getCatches) // Get user's pokemon list
+router.get('/user/catches', catchController.getCatches) // Get user's pokemon list
+router.delete('/user/catches/:id', catchController.deleteCatch)
 router.post('/token/verify', tokenController.checkLoggedIn)
 
 
