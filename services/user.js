@@ -53,14 +53,26 @@ exports.activateUser = async (email, hash, res) => {
 exports.logIn = async(username, password, res) => {
     const hashedPassword = crypto.createHash('md5').update(password).digest('hex')
     await User.count({ where: {user_username: username, user_password: hashedPassword}})
-        .then((quantity) => {
+        .then(async (quantity) => {
             if (quantity === 1) {
-                let token = jsonwebtoken.newToken(username);
-                let data = {
-                    token,
-                    username
-                }
-                httpMsgs.success(res, data);
+                await User.findOne({ where: {user_username : username }})
+                    .then((response) => {
+                        if (response.user_active === true) {
+                            let token = jsonwebtoken.newToken(username);
+                            let data = {
+                                token,
+                                username
+                            }
+                            httpMsgs.success(res, data);
+                        }
+                        else {
+                            let err = "Account is inactive";
+                            httpMsgs.throwErr(res, err);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("err " + err);
+                    })
             }
             else {
                 let err = "User not found"
