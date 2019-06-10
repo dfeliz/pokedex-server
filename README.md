@@ -1,5 +1,5 @@
-## Running the test
-# First, config the .env file. Variables:
+# Running the test
+## First, config the .env file. Variables:
 WEBAPP_HOST
 WEBAPP_PORT
 SERVER_HOST 
@@ -11,10 +11,10 @@ SERVER_DATABASE_PORT
 SERVER_EMAIL_USERNAME
 SERVER_EMAIL_PASSWORD 
 
-# Then run these scripts:
+## Then run these scripts:
 npm run dbcreate
 npm run dbmigrate
 npm seed
 
-# Then start the server
+## Then start the server
 npm start
