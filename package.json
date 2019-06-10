@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "lint": "eslint",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dbcreate": "sequelize db:create",
+    "dbmigrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all"
   },
   "dependencies": {
     "axios": "^0.18.0",
