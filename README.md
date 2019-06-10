@@ -9,12 +9,12 @@ SERVER_DATABASE_PASSWORD\
 SERVER_DATABASE_DIALECT\
 SERVER_DATABASE_PORT\
 SERVER_EMAIL_USERNAME\
-SERVER_EMAIL_PASSWORD\
+SERVER_EMAIL_PASSWORD
 
 ## Then run these scripts:
 npm run dbcreate\
 npm run dbmigrate\
-npm seed\
+npm seed
 
 ## Then start the server
 npm start
