@@ -84,8 +84,14 @@ exports.getProfile = async (req, res) => {
     let token = req.headers.authorization;
     let user = await tokenServices.checkToken(res, token);
     if (user) {
-        let data = await userServices.getProfile(user);
-        httpMsgs.success(res, data);
+        try {
+            let data = await userServices.getProfile(user);
+            httpMsgs.success(res, data);
+        }
+        catch (err) {
+            console.log(err);
+            httpMsgs.throwErr(res, err);
+        }
     }
 }
 
@@ -94,14 +100,12 @@ exports.updateProfile = async (req, res) => {
     let user = await tokenServices.checkToken(res, token);
     if (user) {
         let data = req.body;
-        await userServices.updateProfile(user, data)
-            .then((response) => {
-                if (response === "Success") {
-                    httpMsgs.success(res);
-                }
-                else {
-                    httpMsgs.throwErr(res, response);
-                }
-            })
+        try {
+            await userServices.updateProfile(user, data)
+            httpMsgs.success(res);
+        }
+        catch (err) {
+            httpMsgs.throwErr(res, err);
+        }
     }
 }
