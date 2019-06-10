@@ -152,6 +152,7 @@ exports.getUserID = async ( user_username ) => {
     })
     .catch((err) => {
         console.log('error getting user id: ' + err);
+        throw err;
     })
 }
 
@@ -167,7 +168,7 @@ exports.getProfile = async (user) => {
     }).then((response) => {
         return response;
     }).catch((err) => {
-        console.log(err);
+        throw err;
     })
 }
 
@@ -182,9 +183,7 @@ exports.updateProfile = async (user, data) => {
             gender_id: data.gender_id,
         },
         { where: { user_username: user }},
-    ).then(() => {
-        return "Success"
-    }).catch((err) => {
-        return `Error: + ${err}`
+    ).catch((err) => {
+        throw err;
     })
 }
