@@ -11,13 +11,14 @@ SERVER_DATABASE_PORT\
 SERVER_EMAIL_USERNAME\
 SERVER_EMAIL_PASSWORD
 
+## Then install the packages
+npm install
+
 ## Then run these scripts:
 npm run dbcreate\
 npm run dbmigrate\
 npm seed
 
-## Then install the packages
-npm install
 
 ## Then start the server
 npm start
