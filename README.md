@@ -1,4 +1,4 @@
-# Running the test
+# Running the app
 ## First, config the .env file. Variables:
 WEBAPP_HOST\
 WEBAPP_PORT\
