@@ -16,5 +16,8 @@ npm run dbcreate\
 npm run dbmigrate\
 npm seed
 
+## Then install the packages
+npm install
+
 ## Then start the server
 npm start
