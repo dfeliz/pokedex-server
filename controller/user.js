@@ -39,12 +39,12 @@ exports.register = async (req, res) => {
 
 exports.activate = (req, res) => {
     const {email, hash} = req.body;
-    userServices.activateUser(email, hash, res)
+    userServices.activateUser(email, hash, res);
 }
 
 exports.login = (req, res) => {
     const {username, password} = req.body.user;
-    userServices.logIn(username, password, res)
+    userServices.logIn(username, password, res);
 }
 
 exports.forgotPassword = (req, res) => {
