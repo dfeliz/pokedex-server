@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  db:
+    container_name: "db"
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - pokedex
+    environment: 
+      POSTGRES_PASSWORD: "password"
+  api:
+    container_name: "api"
+    image: api
+    build:
+      context: "./"
+      dockerfile: "./Dockerfile"
+    ports:
+      - "3003:3003"
+    networks: 
+      - pokedex
+    depends_on:
+      - db
+networks:
+  pokedex:
+volumes:
+  db-data:
