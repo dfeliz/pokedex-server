@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 const Sequelize = require('sequelize')
 
-const connection = new Sequelize(process.env.SERVER_DATABASE, process.env.SERVER_DATABASE_USER, process.env.SERVER_DATABASE_PASSWORD, {
-  host: process.env.SERVER_HOST,
-  dialect: process.env.SERVER_DATABASE_DIALECT,
-}, console.log("Connected to database"))
+const user = "postgres";
 
-
+const connection = new Sequelize("pokedex", user, "password", {
+  host: "db",
+  dialect: "postgres",
+}, console.log("Connected to database with user ", user))
 
 module.exports = connection;
